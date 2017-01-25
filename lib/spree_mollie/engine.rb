@@ -4,6 +4,8 @@ module SpreeMollie
     isolate_namespace Spree
     engine_name 'spree_mollie'
 
+    config.autoload_paths += %W(#{config.root}/lib)
+
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
@@ -16,5 +18,9 @@ module SpreeMollie
     end
 
     config.to_prepare &method(:activate).to_proc
+
+    initializer "spree.mollie.payment_methods", :after => "spree.register.payment_methods" do |app|
+      app.config.spree.payment_methods << Spree::Gateway::Mollie
+    end
   end
 end

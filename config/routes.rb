@@ -1,3 +1,5 @@
 Spree::Core::Engine.routes.draw do
-  # Add your extension routes here
+  get 'mollie/check_status/:order_id',
+    to: 'mollie_return#process_payment_status',
+    as: 'mollie_callback'
 end
