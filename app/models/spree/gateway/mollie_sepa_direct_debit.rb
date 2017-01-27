@@ -1,7 +1,7 @@
 require "mollie/api/client"
 module Spree
-  class Gateway::Mollie < Gateway
-    preference :partner_id, :string, default: "test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM"
+  class Gateway::MollieSepaDirectDebit < Gateway
+    preference :partner_id, :string
 
     def provider_class
       ::Mollie::API::Client
@@ -31,6 +31,7 @@ module Spree
       provider.payment.create(
         amount: amount,
         description: "TODO something here",
+        method:     Mollie::API::Object::Method::DIRECTDEBIT,
         redirectUrl: "TODO redirect url here"
       )
     end
