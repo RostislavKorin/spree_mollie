@@ -20,16 +20,7 @@ module SpreeMollie
     config.to_prepare &method(:activate).to_proc
 
     initializer "spree.mollie.payment_methods", :after => "spree.register.payment_methods" do |app|
-      app.config.spree.payment_methods << Spree::Gateway::MollieCreditcard
-      app.config.spree.payment_methods << Spree::Gateway::MollieSOFORTBanking
-      app.config.spree.payment_methods << Spree::Gateway::MollieIDEAL
-      app.config.spree.payment_methods << Spree::Gateway::MollieBankTransfer
-      app.config.spree.payment_methods << Spree::Gateway::MollieSepaDirectDebit
-      app.config.spree.payment_methods << Spree::Gateway::MolliePayPal
-      app.config.spree.payment_methods << Spree::Gateway::MollieBitcoin
-      app.config.spree.payment_methods << Spree::Gateway::MolliePaysafecard
-      app.config.spree.payment_methods << Spree::Gateway::MollieKbccbcPaymentButton
-      app.config.spree.payment_methods << Spree::Gateway::MollieBelflusDirectNet
+      app.config.spree.payment_methods << Spree::Gateway::Mollie
     end
   end
 end
