@@ -17,8 +17,8 @@ module Spree
 
     def provider
       unless @mollie
-        @mollie = ::Mollie::API::Client.new
-        @mollie.setApiKey preferred_partner_id
+        @mollie = ::Mollie::API::Client.new(preferred_partner_id)
+        #@mollie.setApiKey preferred_partner_id
       end
       return @mollie
     end
