@@ -26,7 +26,7 @@ Spree::CheckoutController.class_eval do
           :metadata     => {
             :order => @order.id
           },
-          :method       => Mollie::API::Object::Method::IDEAL,
+      
           :issuer       => params[:order][:payments_attributes].first.to_hash[:issuer_id]})
 
         spree_payment = @order.payments.build(
@@ -39,7 +39,7 @@ Spree::CheckoutController.class_eval do
         spree_payment.pend!
 
         puts payment.inspect
-        redirect_to payment.getPaymentUrl
+        redirect_to payment.payment_url
       end
     rescue Mollie::API::Exception => e
       flash[:error] = e.message

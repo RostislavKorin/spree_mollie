@@ -16,13 +16,10 @@ module Spree
     end
 
     def provider
-      unless @mollie
-        @mollie = ::Mollie::API::Client.new(preferred_partner_id)
-        #@mollie.setApiKey preferred_partner_id
-      end
-      return @mollie
+      @mollie ||= ::Mollie::API::Client.new(preferred_partner_id)
     end
 
+    #check if needed otherwise remove it
     def purchase(amount, express_checkout, gateway_options={})
       puts amount.inspect
       puts express_checkout.inspect
