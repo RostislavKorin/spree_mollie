@@ -1,9 +1,9 @@
 Spree::CheckoutController.class_eval do
-
+  require 'mollie/api/client'
   # Hook into Spree actions. We can do this as we
   # specified in Spree::Gateway::Mollie that we have
   # no payment_source_class.
-  before_action :load_mollie_methods, only: :edit
+  before_action :load_mollie_methods
   before_action :pay_with_mollie, only: :update
 
   # The actual payment handeling
@@ -26,7 +26,7 @@ Spree::CheckoutController.class_eval do
           :metadata     => {
             :order => @order.id
           },
-      
+
           :issuer       => params[:order][:payments_attributes].first.to_hash[:issuer_id]})
 
         spree_payment = @order.payments.build(
@@ -56,13 +56,6 @@ Spree::CheckoutController.class_eval do
   # would be to parse that information in the view partial
   # which can be found in app/views/spree/checkout/payment/_mollie.html.erb
   def load_mollie_methods
-    return unless params[:state] == 'payment'
-
-    method = Spree::PaymentMethod.find_by_type "Spree::Gateway::Mollie"
-    issuers = method.provider.issuers.all
-    @banks = [];
-    issuers.each do |issuer|
-      @banks << [ issuer.name, issuer.id ]
-    end
+     @methods = @mollie.methods
   end
 end
