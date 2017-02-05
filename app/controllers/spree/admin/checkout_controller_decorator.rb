@@ -56,6 +56,7 @@ Spree::CheckoutController.class_eval do
   # would be to parse that information in the view partial
   # which can be found in app/views/spree/checkout/payment/_mollie.html.erb
   def load_mollie_methods
-     @methods = @mollie.methods
+    @mollie ||= ::Mollie::API::Client.new("test_E63asAfyFJGE2E9wT9EASj9gmc4aHh")
+     @methods = Mollie::API::Resource::Methods.new(@mollie).all
   end
 end

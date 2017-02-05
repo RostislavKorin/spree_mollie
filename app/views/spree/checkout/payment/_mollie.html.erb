@@ -1,8 +1,7 @@
 <fieldset>
-
-<%= @mollie.instance_variable_get(:@methods) %>
-
-
-
-
+  <% @methods.each do |method| %>
+  <%= method.description%>
+  <%= method.id%>
+  <%= method.image%>
+  <% end %>
 </fieldset>

@@ -7,12 +7,12 @@ module Spree
       ::Mollie::API::Client
     end
 
-    def payment_source_class
-      nil
-    end
-
     def method_type
       "mollie"
+    end
+
+    def payment_source_class
+      Spree::Check
     end
 
     def provider
