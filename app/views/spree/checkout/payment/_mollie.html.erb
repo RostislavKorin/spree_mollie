@@ -1,7 +1,21 @@
 <fieldset>
-  <% @methods.each do |method| %>
-  <%= method.description%>
-  <%= method.id%>
-  <%= method.image%>
-  <% end %>
+    <!-- <% @methods.each do |method| %>
+      <ul>
+        <button type="submit">
+          <%= method.description%>
+          <%= image_tag(method.image["normal"]) %>
+          <% @pm_id = method.id %>
+        </button>
+      </ul>
+    <% end %> -->
+
+    <div class="well clearfix">
+    <p class="field">
+      <%= select_tag "order[payments_attributes][][payment_method]",
+                     options_from_collection_for_select(@methods, "id", "description"),
+                     class: 'form-control required' %>
+
+
+    </p>
+  </div
 </fieldset>

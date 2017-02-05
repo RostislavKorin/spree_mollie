@@ -13,6 +13,7 @@ Spree::CheckoutController.class_eval do
     puts "HOOOOEOER"
     return unless params[:state] == 'payment'
     begin
+      Rails.logger.info params[:order][:payments_attributes].inspect
       pm_id = params[:order][:payments_attributes].first[:payment_method_id]
       payment_method = Spree::PaymentMethod.find(pm_id)
 
@@ -27,6 +28,7 @@ Spree::CheckoutController.class_eval do
             :order => @order.id
           },
 
+          :method       => params[:order][:payments_attributes].first[:payment_method],
           :issuer       => params[:order][:payments_attributes].first.to_hash[:issuer_id]})
 
         spree_payment = @order.payments.build(
