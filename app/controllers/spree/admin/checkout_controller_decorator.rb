@@ -5,6 +5,8 @@ Spree::CheckoutController.class_eval do
   # no payment_source_class.
   before_action :load_mollie_methods
   before_action :pay_with_mollie, only: :update
+  
+
 
   # The actual payment handeling
   #
@@ -58,7 +60,7 @@ Spree::CheckoutController.class_eval do
   # would be to parse that information in the view partial
   # which can be found in app/views/spree/checkout/payment/_mollie.html.erb
   def load_mollie_methods
-    @mollie ||= ::Mollie::API::Client.new("test_E63asAfyFJGE2E9wT9EASj9gmc4aHh")
-     @methods = Mollie::API::Resource::Methods.new(@mollie).all
+    @mollie = Spree::PaymentMethod.where(type: "Spree::Gateway::Mollie").last.provider
+    @methods = Mollie::API::Resource::Methods.new(@mollie).all
   end
 end
